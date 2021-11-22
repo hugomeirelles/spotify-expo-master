@@ -1,18 +1,16 @@
-import * as React from 'react';
+import React from 'react';
 import { StatusBar, View, Text, StyleSheet, Button } from 'react-native';
 import { registerRootComponent } from 'expo';
 import AppLoading from 'expo-app-loading';
 import { func } from './constants';
-import  {axios} from 'axios';
-
-
+import  axios from 'axios';
 // main navigation stack
 import Stack from './navigation/Stack';
-import { color, greaterThan } from 'react-native-reanimated';
+
 
 class App extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       currentSongData: {
@@ -23,44 +21,35 @@ class App extends React.Component {
         title: 'So It Goes'
       },
       isLoading: true,
+      cod_acess:'',
       token_acess:'',
+      data:[],
       toggleTabBar: false,
       pageError:''
     };
 
     this.changeSong = this.changeSong.bind(this);
     this.setToggleTabBar = this.setToggleTabBar.bind(this);
-    this.token_acess = '10101010101010';
   }
 
-  async getAuth(){
-    console.info('axios conexao...');
+  setCodAcess(){
+    console.info('Chamada setCodAcess():');
     try {
-      params = {
-        response_type: 'code',
-        client_id: '665282b75b4e4e7a83d32ddd07d7591c',
-        scope: 'user-read-private user-read-email',
-        state: state
-      }
-
-      const api = axios.create({
-        baseURL: 'http://localhost:8888',
-        URL:'/login'
-      });
-  
-      console.info('getAuth...')
-  
-      api.get('/Login')
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });       
+      axios.get('https://backspotyfy.herokuapp.com/login')
+        .then(response => {
+          console.info('setando resposta...');
+          console.info(response.data); 
+          console.info('cod_acess:'+response.data.client_secret)
+        }).catch((error) => { 
+          console.log('Erro ao receber dados:'+error)
+        })
     } catch (error) {
-      this.setState({pageError:error})
+      console.info(error)
     }
-   
+  }
+
+  componentDidMount(){
+    
   }
 
   setToggleTabBar() {
@@ -78,11 +67,12 @@ class App extends React.Component {
   render() {
     const { currentSongData, isLoading, toggleTabBar, token_acess } = this.state;
 
+
     if(true){
       return(
         <View style={{marginTop:50}}>
           <Button 
-            onPress={this.getAuth}
+            onPress={this.setCodAcess}
             title="Autorização"
             color="#841584"
             accessibilityLabel="teste de rota para login"
