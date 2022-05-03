@@ -1,8 +1,6 @@
 # Spotify: UI Clone with React Native / Expo
 
-web demo: [Expo Spotify](https://expo-spotify.vercel.app)
-
-[![follow @calebnance](https://img.shields.io/twitter/follow/calebnance.svg?style=for-the-badge&logo=TWITTER&logoColor=FFFFFF&labelColor=00aced&logoWidth=20&color=lightgray)](https://twitter.com/calebnance)
+web demo: [Expo Spotify](none)
 
 <p align="center">
   <img src="screenshots/screenshare-4.jpg?raw=true" />
